@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    background-color: #303030;
+    color: white;
+}
+
+app-navbar{
+    width: 100%;
+    height: 150px;
+    background-color: #7cc576;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    fill: #7cc576;
+}
+
+app-navbar h1{
+    color: white;
+    background-color: #7cc576;
+}
