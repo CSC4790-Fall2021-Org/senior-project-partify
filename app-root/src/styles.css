@@ -3,6 +3,13 @@
 * {
     background-color: #303030;
     color: white;
+    font-family: "Monaco", monospace;
+}
+
+app-home{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 app-navbar{
@@ -14,9 +21,20 @@ app-navbar{
     justify-content: center;
     align-items: center;
     fill: #7cc576;
+    margin-bottom: 20px;
 }
 
 app-navbar h1{
     color: white;
     background-color: #7cc576;
+}
+
+app-playlist-cover{
+    text-align: center;
+}
+
+app-playlist-cover img{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
 }
