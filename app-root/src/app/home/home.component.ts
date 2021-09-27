@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlaylistCoverComponent } from '../playlist-cover/playlist-cover.component';
 
 @Component({
   selector: 'app-home',

@@ -12,13 +12,13 @@ app-home{
     justify-content: center;
 }
 
-app-home .playlists{
+/* app-home .playlists{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     width: 500px;
-}
+} */
 
 app-navbar{
     width: 100%;
@@ -39,6 +39,15 @@ app-navbar h1{
 
 app-playlist-cover{
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 400px;
+}
+
+app-playlist-cover .playlists{
+    /* text-align: center; */
     margin: 10px;
 }
 
