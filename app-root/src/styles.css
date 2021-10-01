@@ -51,4 +51,5 @@ app-playlist-cover img{
 app-playlist-cover select{
     background-color: white;
     color: black;
+    text-align: center;
 }
