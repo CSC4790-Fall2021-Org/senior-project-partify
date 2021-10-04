@@ -3,30 +3,36 @@
 * {
     background-color: #303030;
     color: white;
-    font-family: "Monaco", monospace;
+    font-family: "Tahoma", sans-serif;
+    background-image: linear-gradient(#324f4f, #121212);
+    overflow: overlay;
 }
 
 app-home{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background: none;
 }
 
 app-navbar{
     width: 100%;
     height: 150px;
-    background-color: #7cc576;
+    background-color: #1b1414;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     fill: #7cc576;
     margin-bottom: 20px;
+    background-image: url("assets/images/spotify-topbar.png");
+    background-repeat: no-repeat;
 }
 
 app-navbar h1{
     color: white;
-    background-color: #7cc576;
+    background-color: #1b1414;
+    background-image: none;
 }
 
 app-playlist-cover{
@@ -36,20 +42,50 @@ app-playlist-cover{
     flex-wrap: wrap;
     justify-content: center;
     width: 50%;
+    background: none;
+}
+
+app-playlist-cover p, .playlist-covers{
+    background: none;
 }
 
 app-playlist-cover .playlists{
     margin: 10px;
+    padding: 10px;
+    background-image: none;
+    background-color: rgb(36,36,36,.6)
 }
 
 app-playlist-cover img{
     width: 100px;
     height: 100px;
     display: inline-block;
+    background: none;
 }
 
 app-playlist-cover select{
     background-color: white;
     color: black;
     text-align: center;
+    background-image: none;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(196, 196, 196);
+  }
