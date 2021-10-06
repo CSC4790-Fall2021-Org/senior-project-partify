@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { TopbarComponent } from './topbar/topbar.component';
 import { PlaylistCoverComponent } from './playlist-cover/playlist-cover.component';
 
 
@@ -12,7 +12,7 @@ import { PlaylistCoverComponent } from './playlist-cover/playlist-cover.componen
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent,
+    TopbarComponent,
     PlaylistCoverComponent
   ],
   imports: [

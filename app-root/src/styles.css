@@ -5,20 +5,23 @@
     color: white;
     font-family: "Tahoma", sans-serif;
     background-image: linear-gradient(#324f4f, #121212);
+    align-items: center;
     overflow: overlay;
 }
 
 app-home{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     background: none;
 }
 
-app-navbar{
-    width: 100%;
+app-topbar{
+    width: 50%;
     height: 150px;
     background-color: #1b1414;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -29,7 +32,7 @@ app-navbar{
     background-repeat: no-repeat;
 }
 
-app-navbar h1{
+app-topbar h1{
     color: white;
     background-color: #1b1414;
     background-image: none;
@@ -51,9 +54,15 @@ app-playlist-cover p, .playlist-covers{
 
 app-playlist-cover .playlists{
     margin: 10px;
-    padding: 10px;
+    padding: 12px;
     background-image: none;
-    background-color: rgb(36,36,36,.6)
+    background-color: rgb(36,36,36,.6);
+    border-radius: 5px;
+}
+
+app-playlist-cover .playlists:hover{
+    background-color: rgba(63, 63, 63, 0.6);
+    transition: all .4s ease;
 }
 
 app-playlist-cover img{
