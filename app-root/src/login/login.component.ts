@@ -9,7 +9,10 @@ export class LoginComponent implements OnInit {
   title = 'app-login'
   constructor() { }
 
-  ngOnInit(): void {
+  clickEvent() {
+    console.log('clicked')
   }
 
+  ngOnInit(): void {
+  }
 }
