@@ -4,17 +4,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
-import { PlaylistCoverComponent } from './playlist-cover/playlist-cover.component';
-import { HomeComponent } from './home/home.component';
-import { TopbarComponent } from './topbar/topbar.component';
-import { PlaylistCoverComponent } from './playlist-cover/playlist-cover.component';
+import { PlaylistCoverModule } from './playlist-cover/playlist-cover.module';
+import { HomeModule } from './home/home.module';
+import { TopbarModule } from './topbar/topbar.module';
 
 @NgModule({
   declarations: [
-    AppComponent, HomeComponent, TopbarComponent, PlaylistCoverComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule, LoginModule, BrowserModule, FormsModule, ReactiveFormsModule
+    BrowserModule, LoginModule, BrowserModule, FormsModule, ReactiveFormsModule, HomeModule, PlaylistCoverModule, TopbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
