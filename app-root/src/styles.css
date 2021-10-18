@@ -1,6 +1,100 @@
 /* You can add global styles to this file, and also import other style files */
+
 * {
     background-color: #303030;
     color: white;
-    font-family: "Monaco", monospace;
+    font-family: "Tahoma", sans-serif;
+    background-image: linear-gradient(#324f4f, #121212);
+    align-items: center;
+    overflow: overlay;
 }
+
+app-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+app-topbar{
+    width: 50%;
+    height: 150px;
+    background-color: #1b1414;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    fill: #7cc576;
+    margin-bottom: 20px;
+    background-image: url("assets/images/spotify-topbar.png");
+    background-repeat: no-repeat;
+}
+
+app-topbar h1{
+    color: white;
+    background-color: #1b1414;
+    background-image: none;
+}
+
+app-playlist-cover{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+    background: none;
+}
+
+app-playlist-cover p, .playlist-covers{
+    background: none;
+}
+
+app-playlist-cover .playlists{
+    margin: 10px;
+    padding: 12px;
+    background-image: none;
+    background-color: rgb(36,36,36,.6);
+    border-radius: 5px;
+}
+
+app-playlist-cover .playlists:hover{
+    background-color: rgba(63, 63, 63, 0.6);
+    transition: all .4s ease;
+}
+
+app-playlist-cover img{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background: none;
+}
+
+app-playlist-cover select{
+    background-color: white;
+    color: black;
+    text-align: center;
+    background-image: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(196, 196, 196);
+  }
