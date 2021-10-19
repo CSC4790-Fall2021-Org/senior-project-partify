@@ -15,7 +15,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = 'f56457379527434d853f72398ed3cf86'; // Your client id
 var client_secret = 'f56457379527434d853f72398ed3cf86'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'http://localhost:4200/home'; // Your redirect uri
 
 var SpotifyWebApi = require('spotify-web-api-node');
 
