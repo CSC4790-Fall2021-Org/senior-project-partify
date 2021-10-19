@@ -11,10 +11,12 @@ import { TopbarModule } from './topbar/topbar.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { SpotifyService } from 'src/services/spotify.service';
+import { CallbackComponentComponent } from './callback-component/callback-component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CallbackComponentComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule,

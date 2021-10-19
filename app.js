@@ -15,7 +15,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = 'f56457379527434d853f72398ed3cf86'; // Your client id
 var client_secret = 'f56457379527434d853f72398ed3cf86'; // Your secret
-var redirect_uri = 'http://localhost:4200/home'; // Your redirect uri
+var redirect_uri = 'http://localhost:4200/callback'; // Your redirect uri
 
 var SpotifyWebApi = require('spotify-web-api-node');
 
@@ -49,6 +49,7 @@ var app = express();
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, DELETE, HEAD, OPTIONS");
   next();
 });
 app.use(express.static(__dirname + '/public'))
@@ -73,13 +74,18 @@ app.get('/randomPlaylist', (req, res) => {
 
 // This is what is called at the log in page
 app.get('/login', function(req, res) {
+  res.set('Access-Control-Allow-Origin', '*')
   // application requests authorization using wrapper
   console.log(client_id)
   console.log(redirect_uri)
+  var state = generateRandomString(16);
+  res.cookie(stateKey, state);
+
   var scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-read-playback-state', 'playlist-modify-public', 'playlist-modify-private'];
   res.redirect('https://accounts.spotify.com/authorize' + 
     '?response_type=code&client_id=' + client_id + (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent(redirect_uri));
+    '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + encodeURIComponent(state));
+  console.log(res);
 });
 
 // This is the page that is loaded up after logging in
@@ -87,10 +93,14 @@ app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-
+  console.log('hello there');
+  console.log(req.query);
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
+  console.log(code);
+  console.log(state);
+  console.log(storedState);
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -107,12 +117,12 @@ app.get('/callback', function(req, res) {
         var refresh_token = data.body['refresh_token'];
         spotifyApi.setAccessToken(access_token);
         spotifyApi.setRefreshToken(refresh_token);
-
-        res.redirect('/#' +
-        querystring.stringify({
-          access_token: access_token,
-          refresh_token: refresh_token
-        }));
+        console.log('I got here');
+        // res.redirect('/#' +
+        // querystring.stringify({
+        //   access_token: access_token,
+        //   refresh_token: refresh_token
+        // }));
       },
       (err) => {
         console.log('Something went wrong!', err);

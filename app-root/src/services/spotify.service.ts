@@ -19,4 +19,8 @@ export class SpotifyService {
   getLogin() {
     return this.http.get('/api/login')
   }
+
+  getCallback() {
+    return this.http.get('/api/callback')
+  }
 }
