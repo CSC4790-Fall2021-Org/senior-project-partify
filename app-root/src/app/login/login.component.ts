@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from 'src/services/spotify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,8 @@ import { SpotifyService } from 'src/services/spotify.service';
 })
 export class LoginComponent implements OnInit {
   title = 'app-login'
-  constructor(private service: SpotifyService) { }
+  constructor(private service: SpotifyService,
+              private router: Router) { }
 
   clickEvent() {
     console.log('clicked');
@@ -34,4 +36,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  // clickEvent() {
+  //   this.router.navigate(['/home'])
+  // }
+
 }

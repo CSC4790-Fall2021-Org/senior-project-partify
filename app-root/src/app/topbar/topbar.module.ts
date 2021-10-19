@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EditComponent } from './edit.component';
+import { TopbarComponent } from './topbar.component';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
-    EditComponent
+    TopbarComponent
   ],
   providers: [],
-  exports: [EditComponent]
+  exports: [TopbarComponent]
 })
-export class EditModule {}
+export class TopbarModule {}
