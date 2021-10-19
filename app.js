@@ -115,6 +115,9 @@ app.post('/callback', function(req, res) {
   var code = req.body.code || null;
   var state = req.body.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
+  console.log(code);
+  console.log(state);
+  console.log(storedState);
 
   if (state === null || state !== storedState) {
     res.send(failure)

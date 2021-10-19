@@ -14,7 +14,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { SpotifyService } from 'src/services/spotify.service';
 import { CallbackComponentComponent } from './callback-component/callback-component.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
