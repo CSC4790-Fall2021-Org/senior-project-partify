@@ -26,6 +26,7 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
   redirectUri: redirect_uri
 });
+console.log("lol");
 
 /**
  * Generates a random string containing numbers and letters
