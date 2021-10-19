@@ -11,4 +11,12 @@ export class SpotifyService {
   getData() {
     return this.http.get('/api/getData')
   }
+
+  getPlaylist() {
+    return this.http.get('/api/randomPlaylist')
+  }
+
+  getLogin() {
+    return this.http.get('/api/login')
+  }
 }

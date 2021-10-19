@@ -25,6 +25,7 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
   redirectUri: redirect_uri
 });
+console.log("lol");
 
 /**
  * Generates a random string containing numbers and letters
@@ -45,6 +46,11 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
@@ -56,16 +62,24 @@ app.get('/getData', (req, res) => {
   })
 })
 
+app.get('/randomPlaylist', (req, res) => {
+  spotifyApi.getPlaylist('3cEYpjA9oz9GiPac4AsH4n')
+  .then(function(data) {
+    console.log('Some information about this playlist', data.body);
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+})
+
 // This is what is called at the log in page
 app.get('/login', function(req, res) {
-
-  var state = generateRandomString(16);
-  res.cookie(stateKey, state);
-
   // application requests authorization using wrapper
+  console.log(client_id)
+  console.log(redirect_uri)
   var scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-read-playback-state', 'playlist-modify-public', 'playlist-modify-private'];
-  var authorize_url = spotifyApi.createAuthorizeURL(scopes, state);
-  res.redirect(authorize_url);
+  res.redirect('https://accounts.spotify.com/authorize' + 
+    '?response_type=code&client_id=' + client_id + (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+    '&redirect_uri=' + encodeURIComponent(redirect_uri));
 });
 
 // This is the page that is loaded up after logging in
