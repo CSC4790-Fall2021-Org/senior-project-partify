@@ -25,15 +25,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  getPlaylistFromAPI() {
-    this.service.getPlaylist().subscribe((res) => {
-      console.log('Playlist is ', res)
-    }, (error) => {
-      console.log("error ", error)
-    })
-
-  }
-
   ngOnInit(): void {
   }
   // clickEvent() {

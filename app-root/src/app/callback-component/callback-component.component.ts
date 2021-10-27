@@ -17,7 +17,7 @@ export class CallbackComponentComponent implements OnInit {
     this.service.getCallback().subscribe((res) => {
       console.log('Res ', res);
     }, (err) => {
-      console.log('err ', err);
+      console.log('error ', err);
     })
     const code = this.route.snapshot.queryParamMap.get('code');
     console.log('this is the code');
