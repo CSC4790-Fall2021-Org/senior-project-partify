@@ -35,6 +35,9 @@ export class SpotifyService {
   }
 
   getCallback() {
-    return this.http.get('/api/callback')
+    const headers = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*');
+    return this.http.get('/api/callback', {'headers':headers})
   }
 }
