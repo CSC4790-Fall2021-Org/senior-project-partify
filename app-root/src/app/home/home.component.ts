@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistCoverComponent } from '../playlist-cover/playlist-cover.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,13 @@ import { PlaylistCoverComponent } from '../playlist-cover/playlist-cover.compone
 export class HomeComponent implements OnInit {
 
   title = 'app-home';
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  clickEvent() {
+    this.router.navigate(['/edit'])
   }
 
 }
