@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyService } from 'src/services/spotify.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-callback-component',
@@ -9,19 +11,20 @@ import { SpotifyService } from 'src/services/spotify.service';
 })
 export class CallbackComponentComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
+              private http: HttpClient, 
               private router: Router, 
               private service: SpotifyService) { }
 
   ngOnInit(): void {
-    this.service.getCallback().subscribe((res) => {
-      console.log('Res ', res);
+    let code = this.route.snapshot.queryParamMap.get('code');
+    let state = this.route.snapshot.queryParamMap.get('state');
+
+   this.service.sendCode(code, state).subscribe((res) => {
+     console.log('something happened I think', res)
     }, (err) => {
-      console.log('error ', err);
+      console.log('this is a fat error ', err)
     })
-    const code = this.route.snapshot.queryParamMap.get('code');
-    console.log('this is the code');
-    console.log(code);
 
     this.router.navigate(['/home']);
   }
