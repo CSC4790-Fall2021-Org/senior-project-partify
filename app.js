@@ -26,7 +26,6 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
   redirectUri: redirect_uri
 });
-console.log("lol");
 
 /**
  * Generates a random string containing numbers and letters
@@ -115,9 +114,6 @@ app.post('/callback', function(req, res) {
   var code = req.body.code || null;
   var state = req.body.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
-  console.log(code);
-  console.log(state);
-  console.log(storedState);
 
   if (state === null || state !== storedState) {
     res.send(failure)
