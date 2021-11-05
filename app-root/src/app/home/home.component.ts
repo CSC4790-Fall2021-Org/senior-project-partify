@@ -13,17 +13,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private service: SpotifyService) { }
 
-  getPlaylistFromAPI() {
-    this.service.getPlaylist().subscribe((res) => {
-      console.log('Playlist is ', res)
-    }, (error) => {
-      console.log("error ", error)
-    })
-
-  }
-
   ngOnInit(): void {
-    this.getPlaylistFromAPI();
   }
 
 }

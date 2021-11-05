@@ -71,12 +71,23 @@ app.get('/getData', (req, res) => {
 })
 
 app.get('/randomPlaylist', (req, res) => {
-  spotifyApi.getPlaylist('3cEYpjA9oz9GiPac4AsH4n')
-  .then(function(data) {
-    console.log('Some information about this playlist', data.body);
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
+  var dict = [];
+
+  spotifyApi.getUserPlaylists({limit: 50}).then(
+    (data) => {
+      var playlists = data.body.items
+      var count = 0;
+      playlists.forEach(element => {
+        console.log(element['name'])
+        dict[count] = element['id'];
+        count++;
+      });
+      res.send(data)
+    },
+    (err) => {
+      console.log('Something went wrong!', err);
+    }
+  );
 })
 
 // This is what is called at the log in page
