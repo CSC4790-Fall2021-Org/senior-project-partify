@@ -72,7 +72,6 @@ app.get('/getData', (req, res) => {
 
 app.get('/randomPlaylist', (req, res) => {
   var dict = [];
-
   spotifyApi.getUserPlaylists({limit: 50}).then(
     (data) => {
       var playlists = data.body.items
