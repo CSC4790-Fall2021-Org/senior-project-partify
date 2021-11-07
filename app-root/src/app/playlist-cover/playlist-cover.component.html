@@ -1,6 +1,6 @@
 <div class="playlist-covers" *ngFor="let p of playlists">
     <div class = playlists>
-        <img src="../../assets/images/playlistCover.PNG">
+        <img src="{{p.images[0].url}}">
         <p>{{ p.name }}</p>
         <select (change)="onChange($any($event.target).value)">
             <option value="null" disabled selected hidden>Partify</option>

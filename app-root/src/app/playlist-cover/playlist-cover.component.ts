@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpotifyService } from 'src/services/spotify.service';
 
 @Component({
   selector: 'app-playlist-cover',
@@ -9,16 +10,7 @@ import { Router } from '@angular/router';
 
 export class PlaylistCoverComponent implements OnInit {
 
-  playlists: any[] = [
-    {name: "playlist1", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist2", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist3", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist4", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist5", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist6", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist7", img:"../../assets/images/playlistCover.PNG"},
-    {name: "playlist8", img:"../../assets/images/playlistCover.PNG"},
-  ]
+  playlists: any[] = []
 
   menuOption: any[] = [
     {name: "Danceability"},
@@ -27,9 +19,21 @@ export class PlaylistCoverComponent implements OnInit {
     {name: "Edit Further"}
   ]
 
-  constructor(private router: Router) { }
+  constructor(private service: SpotifyService,
+              private router: Router) { }
+
+  getPlaylistFromAPI() {
+    this.service.getPlaylist().subscribe((res: any) => {
+      this.playlists = res.body.items
+      console.log('Playlist are ', this.playlists)
+    }, (error) => {
+      console.log("error ", error)
+    })
+
+  }
 
   ngOnInit(): void {
+    this.getPlaylistFromAPI();
   }
 
   // onChange(menuOption: any) {

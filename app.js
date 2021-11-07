@@ -10,12 +10,13 @@
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var cors = require('cors');
+var bodyParser = require('body-parser');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = ''; // Your client id
-var client_secret = ''; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var client_id = 'f56457379527434d853f72398ed3cf86'; // Your client id
+var client_secret = 'aab21add02d247949bc17de570abd36f'; // Your secret
+var redirect_uri = 'http://localhost:4200/callback'; // Your redirect uri
 
 var SpotifyWebApi = require('spotify-web-api-node');
 
@@ -45,37 +46,77 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
+
+app.all("/*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, DELETE, HEAD, OPTIONS");
+  next();
+});
+
+app.use(cors({
+  origin: '*'
+}));
+
 app.use(express.static(__dirname + '/public'))
-   .use(cors())
    .use(cookieParser());
+
+app.get('/getData', (req, res) => {
+  res.json({
+    "statusCode":200,
+    "statusMessage":"SUCCESS"
+  })
+})
+
+app.get('/randomPlaylist', (req, res) => {
+  var dict = [];
+  spotifyApi.getUserPlaylists({limit: 50}).then(
+    (data) => {
+      var playlists = data.body.items
+      var count = 0;
+      playlists.forEach(element => {
+        console.log(element['name'])
+        dict[count] = element['id'];
+        count++;
+      });
+      res.send(data)
+    },
+    (err) => {
+      console.log('Something went wrong!', err);
+    }
+  );
+})
 
 // This is what is called at the log in page
 app.get('/login', function(req, res) {
-
+  res.set('Access-Control-Allow-Origin', '*')
+  // application requests authorization using wrapper
+  console.log(client_id)
+  console.log(redirect_uri)
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
-  // application requests authorization using wrapper
   var scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-read-playback-state', 'playlist-modify-public', 'playlist-modify-private'];
-  var authorize_url = spotifyApi.createAuthorizeURL(scopes, state);
-  res.redirect(authorize_url);
+  console.log('check header ', res);
+  res.redirect('http://accounts.spotify.com/authorize' + 
+    '?response_type=code&client_id=' + client_id + (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+    '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + encodeURIComponent(state));
+  
 });
 
 // This is the page that is loaded up after logging in
-app.get('/callback', function(req, res) {
+app.post('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-
-  var code = req.query.code || null;
-  var state = req.query.state || null;
+  var code = req.body.code || null;
+  var state = req.body.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
+    res.send(failure)
   } else {
     res.clearCookie(stateKey);
 
@@ -86,12 +127,8 @@ app.get('/callback', function(req, res) {
         var refresh_token = data.body['refresh_token'];
         spotifyApi.setAccessToken(access_token);
         spotifyApi.setRefreshToken(refresh_token);
-
-        res.redirect('/#' +
-        querystring.stringify({
-          access_token: access_token,
-          refresh_token: refresh_token
-        }));
+        console.log('I got here');
+        res.send({"message": "Authorization set"});
       },
       (err) => {
         console.log('Something went wrong!', err);
