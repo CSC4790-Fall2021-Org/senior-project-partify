@@ -2,12 +2,12 @@
     <div class = playlists>
         <img src="{{p.images[0].url}}">
         <p>{{ p.name }}</p>
-        <select>
+        <select id="{{p.id}}" (change)="onChange($any($event))">
             <option value="null" disabled selected hidden>Partify</option>
-            <option>Danceability</option>
+            <!-- <option>Danceability</option>
             <option>BPM</option>
-            <option>Camelot</option>
-            <option>Edit Further</option>
+            <option>Camelot</option> -->
+            <option value="{{m.name}}" *ngFor='let m of menuOption'>{{m.name}}</option>
         </select>
     </div>
 </div>
