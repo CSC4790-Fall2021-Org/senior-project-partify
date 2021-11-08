@@ -9,7 +9,7 @@ import { CallbackComponentComponent } from './callback-component/callback-compon
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent},
-  { path: 'edit', component: EditComponent},
+  { path: 'edit/:id', component: EditComponent},
   { path: 'callback', component: CallbackComponentComponent}
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -21,9 +22,14 @@ export class EditComponent implements OnInit {
     {name: "Song8"},
     {name: "Song9"},
   ]
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    let playlist_id = this.route.snapshot.paramMap.get('id');
+    console.log('this the id ', playlist_id)
+
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyService } from 'src/services/spotify.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class PlaylistCoverComponent implements OnInit {
   ]
 
   constructor(private service: SpotifyService,
+              private route: ActivatedRoute,
               private router: Router) { }
 
   getPlaylistFromAPI() {
@@ -40,10 +41,13 @@ export class PlaylistCoverComponent implements OnInit {
   //   console.log("Value: ", this.menuOption);
   // }
 
-  onChange(value: any){
-    console.log(value);
-    if(value === 'Edit Further') {
-      this.router.navigate(['/edit']);
+  onChange(event: any){
+    console.log(event.target.id)
+    let val = event.target.value;
+    let playlist_id = event.target.id
+    console.log(val);
+    if(val === 'Edit Further') {
+      this.router.navigate(['/edit', playlist_id]);
     }
   }
 }
