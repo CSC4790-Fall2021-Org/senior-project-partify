@@ -7,12 +7,12 @@ import { state } from '@angular/animations';
 })
 export class SpotifyService {
 
-  baseUrl: string = "http://localhost:4200";
+  baseUrl: string = "http://localhost:8888";
 
   constructor(private http: HttpClient) { }
 
   getData() {
-    return this.http.get('/api/getData')
+    return this.http.get(this.baseUrl + '/getData')
   }
 
   getPlaylist() {
@@ -39,7 +39,7 @@ export class SpotifyService {
     const headers = new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    return this.http.get('/api/login', {'headers':headers})
+    return this.http.get(this.baseUrl + '/login', {'headers':headers})
   }
 
   sendCode(code: any, state: any) {
