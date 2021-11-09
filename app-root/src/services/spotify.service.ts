@@ -16,7 +16,7 @@ export class SpotifyService {
   }
 
   getPlaylist() {
-    return this.http.get('/api/randomPlaylist')
+    return this.http.get(this.baseUrl + '/randomPlaylist')
   }
 
   getPlaylistSongs(playlist_id: any) {
@@ -24,7 +24,7 @@ export class SpotifyService {
     .set('content-type', 'application/json')
     let code_json = {playlist_id: playlist_id}
     let json_code = JSON.stringify(code_json)
-    return this.http.post('/api/getSongs', json_code, {'headers': headers})
+    return this.http.post(this.baseUrl + '/getSongs', json_code, {'headers': headers})
   }
 
   getRecSongs(playlist_id: any) {
@@ -32,7 +32,7 @@ export class SpotifyService {
     .set('content-type', 'application/json')
     let code_json = {playlist_id: playlist_id}
     let json_code = JSON.stringify(code_json)
-    return this.http.post('/api/getRecSongs', json_code, {'headers': headers})
+    return this.http.post(this.baseUrl + '/getRecSongs', json_code, {'headers': headers})
   }
 
   getLogin() {
@@ -47,7 +47,7 @@ export class SpotifyService {
     .set('content-type', 'application/json')
     let code_json = {code: code, state: state}
     let json_code = JSON.stringify(code_json)
-    return this.http.post('/api/callback', json_code, {'headers': headers})
+    return this.http.post(this.baseUrl + '/callback', json_code, {'headers': headers})
   }
 
   partify(playlist_id: any, option: any) {
@@ -55,6 +55,6 @@ export class SpotifyService {
     .set('content-type', 'application/json');
     let playlist_id_json = {playlist_id: playlist_id, option: option}
     let json_playlist = JSON.stringify(playlist_id_json)
-    return this.http.post('/api/algorithm', json_playlist, {'headers': headers})
+    return this.http.post(this.baseUrl + '/algorithm', json_playlist, {'headers': headers})
   }
 }
