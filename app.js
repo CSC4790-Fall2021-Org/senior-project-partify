@@ -136,6 +136,17 @@ app.post('/callback', function(req, res) {
   }
 });
 
+app.get('/getSongs', function(req, res) {
+  let playlist_id = req.body
+  spotifyApi.getPlaylistTracks(playlist_id).then(
+    (data) => {
+      res.send(data)
+    }, (err) => {
+      console.log('Something Went Wrong', err)
+    }
+  )
+});
+
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
