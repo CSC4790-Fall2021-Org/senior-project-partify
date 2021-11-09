@@ -147,6 +147,30 @@ app.post('/getSongs', function(req, res) {
   )
 });
 
+app.post('/getRecSongs', function(req, res) {
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.getPlaylistTracks(playlist_id, {limit: 5}).then(
+    (data) => {
+      let seed_ids = []
+      let songs = data.body.items
+      songs.forEach(song => {
+        seed_ids.push(song.track.id)
+      });
+      spotifyApi.getRecommendations({seed_tracks: seed_ids, limit: 5}).then(
+        (data) => {
+          res.send(data)
+        }, (err) => {
+          console.log('Something went wrong', err)
+        }
+      )
+
+    }, (err) => {
+      console.log('Something Went Wrong', err)
+    }
+  )
+  // spotifyApi.getRecommendations()
+})
+
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token

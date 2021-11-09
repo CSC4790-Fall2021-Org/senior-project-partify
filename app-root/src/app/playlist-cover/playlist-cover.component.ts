@@ -27,7 +27,6 @@ export class PlaylistCoverComponent implements OnInit {
   getPlaylistFromAPI() {
     this.service.getPlaylist().subscribe((res: any) => {
       this.playlists = res.body.items
-      console.log('Playlist are ', this.playlists)
     }, (error) => {
       console.log("error ", error)
     })
