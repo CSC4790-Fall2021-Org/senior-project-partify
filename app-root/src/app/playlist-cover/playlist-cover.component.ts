@@ -15,6 +15,7 @@ export class PlaylistCoverComponent implements OnInit {
   menuOption: any[] = [
     {name: "Danceability"},
     {name: "BPM"},
+    {name: "Energy"},
     {name: "Camelot"},
     {name: "Edit Further"}
   ]
@@ -49,5 +50,22 @@ export class PlaylistCoverComponent implements OnInit {
     if(val === 'Edit Further') {
       this.router.navigate(['/edit', playlist_id]);
     }
+    if (val === 'Danceability') {
+      this.sendPlaylistId(playlist_id, '1')
+    }
+    if (val === 'BPM') {
+      this.sendPlaylistId(playlist_id, '2')
+    }
+    if (val === 'Energy') {
+      this.sendPlaylistId(playlist_id, '3')
+    }
+  }
+
+  sendPlaylistId(playlist_id: any, option: any) {
+    this.service.partify(playlist_id, option).subscribe((res) => {
+      console.log('it sent', res)
+    }, (err) => {
+      console.log('it did not work', err)
+    });
   }
 }
