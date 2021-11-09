@@ -136,9 +136,9 @@ app.post('/callback', function(req, res) {
   }
 });
 
-app.get('/getSongs', function(req, res) {
-  let playlist_id = req.body
-  spotifyApi.getPlaylistTracks(playlist_id).then(
+app.post('/getSongs', function(req, res) {
+  let playlist_id = req.body.playlist_id
+  spotifyApi.getPlaylistTracks(playlist_id, {limit: 50}).then(
     (data) => {
       res.send(data)
     }, (err) => {

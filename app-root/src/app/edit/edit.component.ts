@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpotifyService } from 'src/services/spotify.service';
 
 @Component({
   selector: 'app-edit',
@@ -8,14 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditComponent implements OnInit {
 
-  songs: any [] = [
-    {name: "Song1"},
-    {name: "Song2"},
-    {name: "Song3"},
-    {name: "Song4"},
-    {name: "Song5"},
-    {name: "Song6"}
-  ]
+  songs: any [] = []
 
   recs: any [] = [
     {name: "Song7"},
@@ -24,12 +18,23 @@ export class EditComponent implements OnInit {
   ]
   constructor(
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private service: SpotifyService) { }
 
   ngOnInit(): void {
     let playlist_id = this.route.snapshot.paramMap.get('id');
     console.log('this the id ', playlist_id)
+    this.getSongsFromAPI(playlist_id)
 
+  }
+
+  getSongsFromAPI(playlist_id: any) {
+    this.service.getPlaylistSongs(playlist_id).subscribe((res: any) => {
+      this.songs = res.body.items
+      console.log("songs are ", this.songs)
+    }, (err) => {
+      console.log("error", err)
+    })
   }
 
 }
