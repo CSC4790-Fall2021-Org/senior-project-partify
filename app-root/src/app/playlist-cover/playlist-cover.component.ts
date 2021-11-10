@@ -51,6 +51,7 @@ export class PlaylistCoverComponent implements OnInit {
     }
     if (val === 'Danceability') {
       this.sendPlaylistId(playlist_id, '1')
+      
     }
     if (val === 'BPM') {
       this.sendPlaylistId(playlist_id, '2')
