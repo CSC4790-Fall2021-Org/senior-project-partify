@@ -136,6 +136,41 @@ app.post('/callback', function(req, res) {
   }
 });
 
+app.post('/getSongs', function(req, res) {
+  let playlist_id = req.body.playlist_id
+  spotifyApi.getPlaylistTracks(playlist_id, {limit: 50}).then(
+    (data) => {
+      res.send(data)
+    }, (err) => {
+      console.log('Something Went Wrong', err)
+    }
+  )
+});
+
+app.post('/getRecSongs', function(req, res) {
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.getPlaylistTracks(playlist_id, {limit: 5}).then(
+    (data) => {
+      let seed_ids = []
+      let songs = data.body.items
+      songs.forEach(song => {
+        seed_ids.push(song.track.id)
+      });
+      spotifyApi.getRecommendations({seed_tracks: seed_ids, limit: 5}).then(
+        (data) => {
+          res.send(data)
+        }, (err) => {
+          console.log('Something went wrong', err)
+        }
+      )
+
+    }, (err) => {
+      console.log('Something Went Wrong', err)
+    }
+  )
+  // spotifyApi.getRecommendations()
+})
+
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
@@ -149,32 +184,15 @@ app.get('/refresh_token', function(req, res) {
     });
 });
 
-app.get('/algorithm', function(req, res) {
-  this.algorithm();
+app.post('/algorithm', function(req, res) {
+  console.log('this is the playlist id yes ', req.body.playlist_id);
+  res.send({"message": "Playlist was sent"});
+  this.getSongInfo(req.body.playlist_id, req.body.option);
 });
 
-algorithm = () => {
-  var dict = [];
-
-  spotifyApi.getUserPlaylists().then(
-    (data) => {
-      var playlists = data.body.items
-      var count = 0;
-      playlists.forEach(element => {
-        dict[count] = element['id'];
-        count++;
-      });
-     getSongInfo(dict);
-    },
-    (err) => {
-      console.log('Something went wrong!', err);
-    }
-  );
-}
-
-// grabs user's first playlist
-getSongInfo = (playlists) => {
-  spotifyApi.getPlaylist(playlists[0]).then(
+// grabs user's playlist
+getSongInfo = (playlist, option) => {
+  spotifyApi.getPlaylist(playlist).then(
     (data) => {
       var track_ids = [];
       spotifyApi.getPlaylistTracks(data.body.id).then(
@@ -184,7 +202,7 @@ getSongInfo = (playlists) => {
             var track_id = songInfo.track.id;
             track_ids.push(track_id);
           });
-          getAudioFeature(track_ids);
+          getAudioFeature(track_ids, option);
         },
         (err) => {
           console.log('Something went wrong!', err);
@@ -197,14 +215,26 @@ getSongInfo = (playlists) => {
   );
 }
 
-getAudioFeature = (track_ids) => {
+getAudioFeature = (track_ids, option) => {
   spotifyApi.getAudioFeaturesForTracks(track_ids).then(
     (data) => {
       var arr_energy_ids = [];
       var track_features = data.body.audio_features;
-      track_features.forEach(features => {
-        arr_energy_ids.push({'id': features.id, 'energy': features.energy});
-      });
+      if (option === '1') {
+        track_features.forEach(features => {
+          arr_energy_ids.push({'id': features.id, 'danceablity': features.danceability});
+        });
+      }
+      if (option === '2') {
+        track_features.forEach(features => {
+          arr_energy_ids.push({'id': features.id, 'tempo': features.tempo});
+        });
+      }
+      if (option === '3') {
+        track_features.forEach(features => {
+          arr_energy_ids.push({'id': features.id, 'energy': features.energy});
+        });
+      }
       arr_energy_ids.sort((a,b) => {
         let energyA = a.energy;
         let energyB = b.energy;
