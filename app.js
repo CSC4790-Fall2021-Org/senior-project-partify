@@ -195,7 +195,7 @@ getSongInfo = (playlist, option) => {
   spotifyApi.getPlaylist(playlist).then(
     (data) => {
       var track_ids = [];
-      spotifyApi.getPlaylistTracks(data.body.id).then(
+      spotifyApi.getPlaylistTracks(data.body.id, {limit: 50}).then(
         (data) => {
           var track_arr = data.body.items;
           track_arr.forEach(songInfo => {
