@@ -9,18 +9,20 @@ import { LoginModule } from './login/login.module';
 import { PlaylistCoverModule } from './playlist-cover/playlist-cover.module';
 import { HomeModule } from './home/home.module';
 import { TopbarModule } from './topbar/topbar.module';
+import { InstructionsModule } from './instructions/instructions.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { SpotifyService } from 'src/services/spotify.service';
 import { CallbackComponentComponent } from './callback-component/callback-component.component';
+import { InstructionsComponent } from './instructions/instructions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CallbackComponentComponent
+    CallbackComponentComponent,
   ],
   imports: [
-    BrowserModule, EditModule, LoginModule, BrowserModule, FormsModule, ReactiveFormsModule, HomeModule, PlaylistCoverModule, TopbarModule, AppRoutingModule,
+    BrowserModule, EditModule, LoginModule, BrowserModule, FormsModule, ReactiveFormsModule, HomeModule, PlaylistCoverModule, InstructionsModule, TopbarModule, AppRoutingModule,
     HttpClientModule
   ],
   providers: [],

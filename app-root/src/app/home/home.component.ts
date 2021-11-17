@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from 'src/services/spotify.service';
 import { PlaylistCoverComponent } from '../playlist-cover/playlist-cover.component';
+import { InstructionsComponent } from '../instructions/instructions.component';
 import { Router } from '@angular/router';
 
 @Component({
