@@ -82,6 +82,14 @@ app-playlist-cover select{
     background-image: none;
 }
 
+app-instructions{
+    margin: 10px;
+    padding: 12px;
+    background-image: none;
+    background-color: rgb(36,36,36,.6);
+    border-radius: 5px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
