@@ -222,36 +222,148 @@ getAudioFeature = (track_ids, option) => {
       var track_features = data.body.audio_features;
       if (option === '1') {
         track_features.forEach(features => {
-          arr_energy_ids.push({'id': features.id, 'danceablity': features.danceability});
+          arr_energy_ids.push({'id': features.id, 'danceability': features.danceability});
         });
+        arr_energy_ids.sort((a,b) => {
+          let energyA = a.danceability;
+          let energyB = b.danceability;
+          if (energyA < energyB ) {
+            return -1;
+          }
+          else if (energyA > energyB) {
+            return 1;
+          }
+          return 0;
+        });
+        sortingAlgorithm(arr_energy_ids);
       }
       if (option === '2') {
         track_features.forEach(features => {
           arr_energy_ids.push({'id': features.id, 'tempo': features.tempo});
         });
+        arr_energy_ids.sort((a,b) => {
+          let energyA = a.tempo;
+          let energyB = b.tempo;
+          if (energyA < energyB ) {
+            return -1;
+          }
+          else if (energyA > energyB) {
+            return 1;
+          }
+          return 0;
+        });
+        sortingAlgorithm(arr_energy_ids);
       }
       if (option === '3') {
         track_features.forEach(features => {
           arr_energy_ids.push({'id': features.id, 'energy': features.energy});
         });
+        arr_energy_ids.sort((a,b) => {
+          let energyA = a.energy;
+          let energyB = b.energy;
+          if (energyA < energyB ) {
+            return -1;
+          }
+          else if (energyA > energyB) {
+            return 1;
+          }
+          return 0;
+        });
+        sortingAlgorithm(arr_energy_ids);
       }
-      arr_energy_ids.sort((a,b) => {
-        let energyA = a.energy;
-        let energyB = b.energy;
-        if (energyA < energyB ) {
-          return -1;
-        }
-        else if (energyA > energyB) {
-          return 1;
-        }
-        return 0;
-      });
-      sortingAlgorithm(arr_energy_ids);
+      if (option === '4') {
+        tracks = [];
+        track_features.forEach(features => {
+          let key = features.key;
+          let mode = features.mode;
+          if (mode === 0) {
+            if (key === 0) {
+              tracks.push({'id': features.id, 'camKey': 5, 'mode': mode});
+            }
+            if (key === 1) {
+              tracks.push({'id': features.id, 'camKey': 12, 'mode': mode});
+            }
+            if (key === 2) {
+              tracks.push({'id': features.id, 'camKey': 7, 'mode': mode});
+            }
+            if (key === 3) {
+              tracks.push({'id': features.id, 'camKey': 2, 'mode': mode});
+            }
+            if (key === 4) {
+              tracks.push({'id': features.id, 'camKey': 9, 'mode': mode});
+            }
+            if (key === 5) {
+              tracks.push({'id': features.id, 'camKey': 4, 'mode': mode});
+            }
+            if (key === 6) {
+              tracks.push({'id': features.id, 'camKey': 11, 'mode': mode});
+            }
+            if (key === 7) {
+              tracks.push({'id': features.id, 'camKey': 6, 'mode': mode});
+            }
+            if (key === 8) {
+              tracks.push({'id': features.id, 'camKey': 1, 'mode': mode});
+            }
+            if (key === 9) {
+              tracks.push({'id': features.id, 'camKey': 8, 'mode': mode});
+            }
+            if (key === 10) {
+              tracks.push({'id': features.id, 'camKey': 3, 'mode': mode});
+            }
+            if (key === 11) {
+              tracks.push({'id': features.id, 'camKey': 10, 'mode': mode});
+            }
+          }
+          if (mode === 1) {
+            if (key === 0) {
+              tracks.push({'id': features.id, 'camKey': 8, 'mode': mode});
+            }
+            if (key === 1) {
+              tracks.push({'id': features.id, 'camKey': 3, 'mode': mode});
+            }
+            if (key === 2) {
+              tracks.push({'id': features.id, 'camKey': 10, 'mode': mode});
+            }
+            if (key === 3) {
+              tracks.push({'id': features.id, 'camKey': 5, 'mode': mode});
+            }
+            if (key === 4) {
+              tracks.push({'id': features.id, 'camKey': 12, 'mode': mode});
+            }
+            if (key === 5) {
+              tracks.push({'id': features.id, 'camKey': 7, 'mode': mode});
+            }
+            if (key === 6) {
+              tracks.push({'id': features.id, 'camKey': 2, 'mode': mode});
+            }
+            if (key === 7) {
+              tracks.push({'id': features.id, 'camKey': 9, 'mode': mode});
+            }
+            if (key === 8) {
+              tracks.push({'id': features.id, 'camKey': 4, 'mode': mode});
+            }
+            if (key === 9) {
+              tracks.push({'id': features.id, 'camKey': 11, 'mode': mode});
+            }
+            if (key === 10) {
+              tracks.push({'id': features.id, 'camKey': 6, 'mode': mode});
+            }
+            if (key === 11) {
+              tracks.push({'id': features.id, 'camKey': 1, 'mode': mode});
+            }
+          }
+        });
+        camelotPlaylist(tracks);
+      }
     },
     (err) => {
       console.log('Something went wrong!', err);
     }
   );
+}
+
+camelotPlaylist = (tracks) => {
+
 }
 
 sortingAlgorithm = (tracks) => {
