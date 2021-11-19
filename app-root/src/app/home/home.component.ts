@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyService } from 'src/services/spotify.service';
 import { PlaylistCoverComponent } from '../playlist-cover/playlist-cover.component';
+import { InstructionsComponent } from '../instructions/instructions.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +12,9 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   title = 'app-home';
-  constructor(private router: Router) { }
+
+  constructor(private service: SpotifyService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }

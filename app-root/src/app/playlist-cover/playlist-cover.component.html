@@ -1,13 +1,13 @@
 <div class="playlist-covers" *ngFor="let p of playlists">
     <div class = playlists>
-        <img src="../../assets/images/playlistCover.PNG">
+        <img src="{{p.images[0].url}}">
         <p>{{ p.name }}</p>
-        <select (change)="onChange($any($event.target).value)">
+        <select id="{{p.id}}" (change)="onChange($any($event))">
             <option value="null" disabled selected hidden>Partify</option>
             <!-- <option>Danceability</option>
             <option>BPM</option>
             <option>Camelot</option> -->
-            <option *ngFor='let m of menuOption'>{{m.name}}</option>
+            <option value="{{m.name}}" *ngFor='let m of menuOption'>{{m.name}}</option>
         </select>
     </div>
 </div>
