@@ -58,9 +58,13 @@ app-playlist-cover p, .playlist-covers{
 app-playlist-cover .playlists{
     margin: 10px;
     padding: 12px;
+    width: 100px;
+    height: 200px;
     background-image: none;
     background-color: rgb(36,36,36,.6);
     border-radius: 5px;
+    font-size: small;
+    position: relative;
 }
 
 app-playlist-cover .playlists:hover{
@@ -80,6 +84,9 @@ app-playlist-cover select{
     color: black;
     text-align: center;
     background-image: none;
+    position: absolute;
+    bottom: 10px;
+    left: 14px;
 }
 
 app-instructions{
