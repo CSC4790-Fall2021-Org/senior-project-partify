@@ -61,6 +61,10 @@ export class PlaylistCoverComponent implements OnInit {
       this.sendPlaylistId(playlist_id, '3')
       alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
     }
+    if (val === 'Camelot') {
+      this.sendPlaylistId(playlist_id, '4')
+      alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
+    }
   }
 
   sendPlaylistId(playlist_id: any, option: any) {

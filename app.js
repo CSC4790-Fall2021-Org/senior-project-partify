@@ -363,7 +363,75 @@ getAudioFeature = (track_ids, option) => {
 }
 
 camelotPlaylist = (tracks) => {
-
+  let mini = tracks.reduce((min, p) => p.camKey < min ? p.camKey : min, tracks[0].camKey);
+  let len = tracks.length;
+  let play = [];
+  let minList = tracks.filter((song) => {
+    return song.camKey == mini;
+  });
+  minList.forEach((song) => {
+    let index = tracks.indexOf(song);
+    tracks.splice(index, 1);
+  });
+  minList.sort((a,b) => {
+    return a.mode-b.mode;
+  });
+  play = play.concat(minList);
+  
+  while( play.length !== len) {
+    let last = play.slice(-1);
+    let modeStatus = last[0].mode;
+    let mini = tracks.reduce((min, p) => p.camKey < min ? p.camKey : min, tracks[0].camKey);
+    minList = [];
+    let filList = tracks.filter((song) => {
+      return song.camKey == mini;
+    });
+    filList.forEach((song) => {
+      let index = tracks.indexOf(song);
+      tracks.splice(index, 1);
+    });
+    if( modeStatus === 1) {
+      filList.sort((a, b) => {
+        return b.mode-a.mode;
+      });
+      play = play.concat(filList);
+    }
+    else {
+      filList.sort((a,b) => {
+        return a.mode - b.mode;
+      });
+      play = play.concat(filList);
+    }
+  }
+  var final_songIds = [];
+  play.forEach((song) => {
+    final_songIds.push("spotify:track:" + song.id)
+  });
+  var playlistName = 'Camelot Playlist';
+  spotifyApi.createPlaylist(playlistName, {'collaborative': false, 'public': true}).then(
+    (data) => {
+      spotifyApi.getUserPlaylists().then(
+        (data) => {
+          var playlists = data.body;
+          var playId = playlists.items[0].id;
+          spotifyApi.addTracksToPlaylist(playId, final_songIds).then(
+            (data) => {
+              console.log('It was a success!! I hope...');
+            },
+            (err) => {
+              console.log('Something went wrong', err);
+            }
+          )
+        },
+        (err) => {
+          console.log('Something went wrong!', err);
+        }
+      );
+    },
+    (err) => {
+      console.log('Something went wrong!', err)
+    }
+  );
 }
 
 sortingAlgorithm = (tracks) => {

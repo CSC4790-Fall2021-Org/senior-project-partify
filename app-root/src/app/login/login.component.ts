@@ -27,8 +27,5 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  // clickEvent() {
-  //   this.router.navigate(['/home'])
-  // }
 
 }
