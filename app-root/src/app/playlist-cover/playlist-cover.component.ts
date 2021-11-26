@@ -47,6 +47,7 @@ export class PlaylistCoverComponent implements OnInit {
     let playlist_id = event.target.id
     console.log(val);
     if(val === 'Edit Further') {
+      this.sendPlaylistId(playlist_id, '0')
       this.router.navigate(['/edit', playlist_id]);
     }
     if (val === 'Danceability') {

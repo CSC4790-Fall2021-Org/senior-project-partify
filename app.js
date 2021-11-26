@@ -190,10 +190,28 @@ app.post('/algorithm', function(req, res) {
   this.getSongInfo(req.body.playlist_id, req.body.option);
 });
 
+removeSongs = (playlist, track) => {
+  spotifyApi.removeTracksFromPlaylist(playlistId=playlist, tracks=track)
+}
+
+addSongs = (playlist, track) => {
+  spotifyApi.addTracksToPlaylist(playlistId=playlist, tracks=track)
+}
+
 // grabs user's playlist
 getSongInfo = (playlist, option) => {
   spotifyApi.getPlaylist(playlist).then(
     (data) => {
+      // var res = spotifyApi.getPlaylist(playlist).then(
+      //   (data) => {
+      //     var playlist_name = res.body.name;
+      //     console.log("Playlist id: ", playlist);
+      //     console.log(playlist_name);
+      //   }     
+      // );
+      var playlist_name = res.body.name
+      console.log("Playlist id: ", playlist);
+      console.log(playlist_name);
       var track_ids = [];
       spotifyApi.getPlaylistTracks(data.body.id, {limit: 50}).then(
         (data) => {

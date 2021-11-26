@@ -2,19 +2,28 @@
     <title>Edit Further</title>
 </head>
 <body>
-    <p>Playlist Name</p>
+    <p class="top">Current Songs</p>
+    <!-- <div class="edit-further" *ngFor="let p of playlists">
+        <p>{{ p }}</p> -->
+    <!-- </div> -->
     <div class="edit-further" *ngFor="let s of songs">
         <div class = songs>
             <ul>
-                <li><span class="close">x</span>{{ s.track.name }}</li>
+                <li>"{{ s.track.name }}" - {{ s.track.artists[0].name }}<input class="close" type="button" (click)="clickEvent()" value="x"></li>
             </ul>
+            <!-- <ul>
+                <li><span class="close">x</span>"{{ s.track.name }}" - {{ s.track.artists[0].name }}</li>
+            </ul> -->
         </div>
     </div>
     <p>Recommended Songs</p>
     <div class="edit-further" *ngFor="let r of recs">
         <div class = recs>
+            <!-- <ul>
+                <li><span class="add">+</span>"{{ r.name }}" - {{ r.artists }}</li>
+            </ul> -->
             <ul>
-                <li><span class="add">+</span>{{ r.name }}</li>
+                <li>"{{ r.name }}" - {{ r.artists }} <input class="add" type="button" (click)="clickEvent()" value="+"></li>
             </ul>
         </div>
     </div>

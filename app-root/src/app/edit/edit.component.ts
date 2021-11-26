@@ -16,6 +16,9 @@ export class EditComponent implements OnInit {
     {name: "Song8"},
     {name: "Song9"},
   ]
+
+  playlists: any [] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -25,7 +28,12 @@ export class EditComponent implements OnInit {
     let playlist_id = this.route.snapshot.paramMap.get('id');
     this.getSongsFromAPI(playlist_id)
     this.getRecsFromAPI(playlist_id)
+    this.getPlaylistFromAPI(playlist_id)
 
+  }
+
+  clickEvent() {
+    console.log("clicked");
   }
 
   getSongsFromAPI(playlist_id: any) {
@@ -40,6 +48,15 @@ export class EditComponent implements OnInit {
     this.service.getRecSongs(playlist_id).subscribe((res: any) => {
       this.recs = res.body.tracks
       console.log('rec songs ', this.recs)
+    }, (err) => {
+      console.log("error", err)
+    })
+  }
+
+  getPlaylistFromAPI(playlist_id: any) {
+    this.service.getPlaylist().subscribe((res: any) => {
+      this.playlists = res.body.name
+      console.log("Playlist: ", this.playlists)
     }, (err) => {
       console.log("error", err)
     })
