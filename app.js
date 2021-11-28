@@ -186,8 +186,8 @@ app.get('/refresh_token', function(req, res) {
 
 app.post('/algorithm', function(req, res) {
   console.log('this is the playlist id yes ', req.body.playlist_id);
-  res.send({"message": "Playlist was sent"});
   this.getSongInfo(req.body.playlist_id, req.body.option);
+  res.send({"message": "Playlist was sent"});
 });
 
 // grabs user's playlist
