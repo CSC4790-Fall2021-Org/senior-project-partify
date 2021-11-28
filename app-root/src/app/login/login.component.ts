@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   clickEvent() {
     console.log('clicked');
-    this.getLoginFromAPI();
+    // this.getLoginFromAPI();
   }
 
   getLoginFromAPI() {
