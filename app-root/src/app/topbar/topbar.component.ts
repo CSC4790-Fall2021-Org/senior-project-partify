@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyService } from 'src/services/spotify.service';
 
 @Component({
   selector: 'app-topbar',
@@ -8,8 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class TopbarComponent implements OnInit{ 
   title = 'app-topbar';
 
-  constructor() { }
+  user: any;
+
+  constructor(private service: SpotifyService) { }
 
   ngOnInit(): void {
+    this.getUserFromAPI();
+  }
+
+  getUserFromAPI() {
+    this.service.getUserId().subscribe((res: any) => {
+      this.user = res.body.display_name;
+      console.log(this.user);
+    }, (err) => {
+      console.log("error ", err);
+    })
   }
 }

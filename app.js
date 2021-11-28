@@ -89,6 +89,20 @@ app.get('/randomPlaylist', (req, res) => {
   );
 })
 
+app.get('/getUser', (req, res) => {
+  var user = "";
+  spotifyApi.getMe().then(
+    (data) => {
+      user = data.body.display_name;
+      console.log("this is the user", user);
+      res.send(data);
+    },
+    (err) => {
+      console.log('Something went wrong', err);
+    }
+  )
+})
+
 // This is what is called at the log in page
 app.get('/login', function(req, res) {
   res.set('Access-Control-Allow-Origin', '*')
@@ -99,7 +113,6 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   var scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-read-playback-state', 'playlist-modify-public', 'playlist-modify-private'];
-  console.log('check header ', res);
   res.redirect('http://accounts.spotify.com/authorize' + 
     '?response_type=code&client_id=' + client_id + (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
     '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + encodeURIComponent(state));
