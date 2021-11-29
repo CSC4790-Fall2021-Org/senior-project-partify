@@ -12,6 +12,7 @@ export class EditComponent implements OnInit {
   songs: any [] = []
 
   playlistName: any;
+  playlist_id: any;
 
   recs: any [] = [
     {name: "Song7"},
@@ -24,10 +25,10 @@ export class EditComponent implements OnInit {
     private service: SpotifyService) { }
 
   ngOnInit(): void {
-    let playlist_id = this.route.snapshot.paramMap.get('id');
-    this.getPlaylistNameFromAPI(playlist_id);
-    this.getSongsFromAPI(playlist_id);
-    this.getRecsFromAPI(playlist_id);
+    this.playlist_id = this.route.snapshot.paramMap.get('id');
+    this.getPlaylistNameFromAPI(this.playlist_id);
+    this.getSongsFromAPI(this.playlist_id)
+    this.getRecsFromAPI(this.playlist_id)
   }
 
   getPlaylistNameFromAPI(playlist_id: any) {
@@ -52,6 +53,24 @@ export class EditComponent implements OnInit {
       console.log('rec songs ', this.recs)
     }, (err) => {
       console.log("error", err)
+    })
+  }
+
+  addSong(song_id: any) {
+    console.log('The plus was clicked and this is the song id', song_id);
+    this.service.addSong(song_id, this.playlist_id).subscribe((res: any) => {
+      location.reload();
+    }, (err) => {
+      console.log("error", err);
+    })
+  }
+
+  removeSong(song_id: any) {
+    console.log('The x was clicked and this is the song id', song_id);
+    this.service.removeSong(song_id, this.playlist_id).subscribe((res: any) => {
+      location.reload();
+    }, (err) => {
+      console.log("error", err);
     })
   }
 
