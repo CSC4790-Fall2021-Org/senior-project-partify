@@ -147,6 +147,32 @@ app.post('/getSongs', function(req, res) {
   )
 });
 
+app.post('/removeSong', function(req, res) {
+  let song_id = [{ uri: 'spotify:track:' + req.body.song_id}];
+  let playlist_id = req.body.playlist_id;
+  console.log(song_id);
+  console.log(playlist_id);
+  spotifyApi.removeTracksFromPlaylist(playlist_id, song_id).then(
+    (data) => {
+      res.send(data);
+    }, (err) => {
+      console.log('Something went wrong! ', err);
+    }
+  )
+})
+
+app.post('/addSong', function(req, res) {
+  let song_id = 'spotify:track:' + req.body.song_id;
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.addTracksToPlaylist(playlist_id, [song_id]).then(
+    (data) => {
+      res.send(data);
+    }, (err) => {
+      console.log('Something went wrong', err)
+    }
+  )
+})
+
 app.post('/getRecSongs', function(req, res) {
   let playlist_id = req.body.playlist_id;
   spotifyApi.getPlaylistTracks(playlist_id, {limit: 5}).then(
