@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   clickEvent() {
-    console.log('clicked');
     // this.getLoginFromAPI();
   }
 

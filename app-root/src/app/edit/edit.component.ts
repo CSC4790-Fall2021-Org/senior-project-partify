@@ -54,7 +54,6 @@ export class EditComponent implements OnInit {
   getRecsFromAPI(playlist_id: any) {
     this.service.getRecSongs(playlist_id).subscribe((res: any) => {
       this.recs = res.body.tracks
-      console.log('rec songs ', this.recs)
     }, (err) => {
       console.log("error", err)
     })

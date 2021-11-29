@@ -20,7 +20,6 @@ export class TopbarComponent implements OnInit{
   getUserFromAPI() {
     this.service.getUserId().subscribe((res: any) => {
       this.user = res.body.display_name;
-      console.log(this.user);
     }, (err) => {
       console.log("error ", err);
     })
