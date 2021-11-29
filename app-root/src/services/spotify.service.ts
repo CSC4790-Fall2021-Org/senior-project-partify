@@ -67,7 +67,6 @@ export class SpotifyService {
     .set('content-type', 'application/json')
     let code_json = {song_id: song_id, playlist_id: playlist_id}
     let json_code = JSON.stringify(code_json)
-    console.log(json_code)
     return this.http.post('/api/removeSong', json_code, {'headers': headers})
   }
 
