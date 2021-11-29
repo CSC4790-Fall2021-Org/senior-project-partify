@@ -31,6 +31,10 @@ export class EditComponent implements OnInit {
     this.getRecsFromAPI(this.playlist_id)
   }
 
+  clickEvent(event: any){
+    this.router.navigate(['/home']);
+  }
+
   getPlaylistNameFromAPI(playlist_id: any) {
     this.service.getPlaylistName(playlist_id).subscribe((res: any) => {
       this.playlistName = res.body.name;
