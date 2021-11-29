@@ -1,3 +1,4 @@
+import { ResourceLoader } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpotifyService } from 'src/services/spotify.service';
@@ -51,21 +52,23 @@ export class PlaylistCoverComponent implements OnInit {
     }
     if (val === 'Danceability') {
       this.sendPlaylistId(playlist_id, '1')
-      alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
     }
     if (val === 'BPM') {
       this.sendPlaylistId(playlist_id, '2')
-      alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
     }
     if (val === 'Energy') {
       this.sendPlaylistId(playlist_id, '3')
-      alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
+    }
+    if (val === 'Camelot') {
+      this.sendPlaylistId(playlist_id, '4')
     }
   }
 
   sendPlaylistId(playlist_id: any, option: any) {
     this.service.partify(playlist_id, option).subscribe((res) => {
       console.log('it sent', res)
+      alert("Playlist has been partified! Please check your Spotify account for the new playlist.");
+      location.reload();
     }, (err) => {
       console.log('it did not work', err)
     });

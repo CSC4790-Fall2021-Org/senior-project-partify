@@ -89,6 +89,20 @@ app.get('/randomPlaylist', (req, res) => {
   );
 })
 
+app.get('/getUser', (req, res) => {
+  var user = "";
+  spotifyApi.getMe().then(
+    (data) => {
+      user = data.body.display_name;
+      console.log("this is the user", user);
+      res.send(data);
+    },
+    (err) => {
+      console.log('Something went wrong', err);
+    }
+  )
+})
+
 // This is what is called at the log in page
 app.get('/login', function(req, res) {
   res.set('Access-Control-Allow-Origin', '*')
@@ -99,10 +113,9 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   var scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-read-playback-state', 'playlist-modify-public', 'playlist-modify-private'];
-  console.log('check header ', res);
   res.redirect('http://accounts.spotify.com/authorize' + 
     '?response_type=code&client_id=' + client_id + (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + encodeURIComponent(state));
+    '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + encodeURIComponent(state) + '&show_dialog=' + encodeURIComponent(true));
   
 });
 
@@ -135,6 +148,17 @@ app.post('/callback', function(req, res) {
       });
   }
 });
+
+app.post('/getPlaylistName', function(req, res) {
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.getPlaylist(playlist_id).then(
+    (data) => {
+      res.send(data)
+    }, (err) => {
+      console.log('Something Wrong', err)
+    }
+  )
+})
 
 app.post('/getSongs', function(req, res) {
   let playlist_id = req.body.playlist_id
@@ -186,8 +210,8 @@ app.get('/refresh_token', function(req, res) {
 
 app.post('/algorithm', function(req, res) {
   console.log('this is the playlist id yes ', req.body.playlist_id);
-  res.send({"message": "Playlist was sent"});
   this.getSongInfo(req.body.playlist_id, req.body.option);
+  res.send({"message": "Playlist was sent"});
 });
 
 // grabs user's playlist
@@ -363,7 +387,75 @@ getAudioFeature = (track_ids, option) => {
 }
 
 camelotPlaylist = (tracks) => {
-
+  let mini = tracks.reduce((min, p) => p.camKey < min ? p.camKey : min, tracks[0].camKey);
+  let len = tracks.length;
+  let play = [];
+  let minList = tracks.filter((song) => {
+    return song.camKey == mini;
+  });
+  minList.forEach((song) => {
+    let index = tracks.indexOf(song);
+    tracks.splice(index, 1);
+  });
+  minList.sort((a,b) => {
+    return a.mode-b.mode;
+  });
+  play = play.concat(minList);
+  
+  while( play.length !== len) {
+    let last = play.slice(-1);
+    let modeStatus = last[0].mode;
+    let mini = tracks.reduce((min, p) => p.camKey < min ? p.camKey : min, tracks[0].camKey);
+    minList = [];
+    let filList = tracks.filter((song) => {
+      return song.camKey == mini;
+    });
+    filList.forEach((song) => {
+      let index = tracks.indexOf(song);
+      tracks.splice(index, 1);
+    });
+    if( modeStatus === 1) {
+      filList.sort((a, b) => {
+        return b.mode-a.mode;
+      });
+      play = play.concat(filList);
+    }
+    else {
+      filList.sort((a,b) => {
+        return a.mode - b.mode;
+      });
+      play = play.concat(filList);
+    }
+  }
+  var final_songIds = [];
+  play.forEach((song) => {
+    final_songIds.push("spotify:track:" + song.id)
+  });
+  var playlistName = 'Camelot Playlist';
+  spotifyApi.createPlaylist(playlistName, {'collaborative': false, 'public': true}).then(
+    (data) => {
+      spotifyApi.getUserPlaylists().then(
+        (data) => {
+          var playlists = data.body;
+          var playId = playlists.items[0].id;
+          spotifyApi.addTracksToPlaylist(playId, final_songIds).then(
+            (data) => {
+              console.log('It was a success!! I hope...');
+            },
+            (err) => {
+              console.log('Something went wrong', err);
+            }
+          )
+        },
+        (err) => {
+          console.log('Something went wrong!', err);
+        }
+      );
+    },
+    (err) => {
+      console.log('Something went wrong!', err)
+    }
+  );
 }
 
 sortingAlgorithm = (tracks) => {

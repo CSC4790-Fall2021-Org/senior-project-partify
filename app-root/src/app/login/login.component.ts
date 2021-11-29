@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   clickEvent() {
     console.log('clicked');
-    this.getLoginFromAPI();
+    // this.getLoginFromAPI();
   }
 
   getLoginFromAPI() {
@@ -27,8 +27,5 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  // clickEvent() {
-  //   this.router.navigate(['/home'])
-  // }
 
 }

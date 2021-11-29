@@ -19,6 +19,18 @@ export class SpotifyService {
     return this.http.get('/api/randomPlaylist')
   }
 
+  getUserId() {
+    return this.http.get('/api/getUser')
+  }
+
+  getPlaylistName(playlist_id: any) {
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    let code_json = {playlist_id: playlist_id}
+    let json_code = JSON.stringify(code_json)
+    return this.http.post('/api/getPlaylistName', json_code, {'headers': headers})
+  }
+
   getPlaylistSongs(playlist_id: any) {
     const headers = new HttpHeaders()
     .set('content-type', 'application/json')

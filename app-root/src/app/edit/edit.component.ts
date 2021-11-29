@@ -11,6 +11,8 @@ export class EditComponent implements OnInit {
 
   songs: any [] = []
 
+  playlistName: any;
+
   recs: any [] = [
     {name: "Song7"},
     {name: "Song8"},
@@ -23,9 +25,17 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     let playlist_id = this.route.snapshot.paramMap.get('id');
-    this.getSongsFromAPI(playlist_id)
-    this.getRecsFromAPI(playlist_id)
+    this.getPlaylistNameFromAPI(playlist_id);
+    this.getSongsFromAPI(playlist_id);
+    this.getRecsFromAPI(playlist_id);
+  }
 
+  getPlaylistNameFromAPI(playlist_id: any) {
+    this.service.getPlaylistName(playlist_id).subscribe((res: any) => {
+      this.playlistName = res.body.name;
+    }, (err) => {
+      console.log('error ', err);
+    })
   }
 
   getSongsFromAPI(playlist_id: any) {
