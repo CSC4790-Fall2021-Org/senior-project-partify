@@ -16,7 +16,7 @@
         <div class="edit-further" *ngFor="let r of recs">
             <div class = recs>
                 <ul>
-                    <li><span (click)="addSong(r.id)" class="add">+</span>"{{ r.name }}" -</li>
+                    <li><span (click)="addSong(r.id)" class="add">+</span>"{{ r.name }}" -<div *ngFor="let a of r.artists">{{ a.name }}</div></li>
                 </ul>
             </div>
         </div>
