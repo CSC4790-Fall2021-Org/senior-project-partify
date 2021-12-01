@@ -77,7 +77,6 @@ app.get('/randomPlaylist', (req, res) => {
       var playlists = data.body.items
       var count = 0;
       playlists.forEach(element => {
-        console.log(element['name'])
         dict[count] = element['id'];
         count++;
       });
@@ -94,7 +93,6 @@ app.get('/getUser', (req, res) => {
   spotifyApi.getMe().then(
     (data) => {
       user = data.body.display_name;
-      console.log("this is the user", user);
       res.send(data);
     },
     (err) => {
@@ -107,8 +105,6 @@ app.get('/getUser', (req, res) => {
 app.get('/login', function(req, res) {
   res.set('Access-Control-Allow-Origin', '*')
   // application requests authorization using wrapper
-  console.log(client_id)
-  console.log(redirect_uri)
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -171,6 +167,30 @@ app.post('/getSongs', function(req, res) {
   )
 });
 
+app.post('/removeSong', function(req, res) {
+  let song_id = [{ uri: 'spotify:track:' + req.body.song_id}];
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.removeTracksFromPlaylist(playlist_id, song_id).then(
+    (data) => {
+      res.send(data);
+    }, (err) => {
+      console.log('Something went wrong! ', err);
+    }
+  )
+})
+
+app.post('/addSong', function(req, res) {
+  let song_id = 'spotify:track:' + req.body.song_id;
+  let playlist_id = req.body.playlist_id;
+  spotifyApi.addTracksToPlaylist(playlist_id, [song_id]).then(
+    (data) => {
+      res.send(data);
+    }, (err) => {
+      console.log('Something went wrong', err)
+    }
+  )
+})
+
 app.post('/getRecSongs', function(req, res) {
   let playlist_id = req.body.playlist_id;
   spotifyApi.getPlaylistTracks(playlist_id, {limit: 5}).then(
@@ -209,7 +229,6 @@ app.get('/refresh_token', function(req, res) {
 });
 
 app.post('/algorithm', function(req, res) {
-  console.log('this is the playlist id yes ', req.body.playlist_id);
   this.getSongInfo(req.body.playlist_id, req.body.option);
   res.send({"message": "Playlist was sent"});
 });

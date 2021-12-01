@@ -62,6 +62,22 @@ export class SpotifyService {
     return this.http.post('/api/callback', json_code, {'headers': headers})
   }
 
+  removeSong(song_id: any, playlist_id: any) {
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    let code_json = {song_id: song_id, playlist_id: playlist_id}
+    let json_code = JSON.stringify(code_json)
+    return this.http.post('/api/removeSong', json_code, {'headers': headers})
+  }
+
+  addSong(song_id: any, playlist_id: any) {
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    let code_json = {song_id: song_id, playlist_id: playlist_id}
+    let json_code = JSON.stringify(code_json)
+    return this.http.post('/api/addSong', json_code, {'headers': headers})
+  }
+
   partify(playlist_id: any, option: any) {
     const headers = new HttpHeaders()
     .set('content-type', 'application/json');

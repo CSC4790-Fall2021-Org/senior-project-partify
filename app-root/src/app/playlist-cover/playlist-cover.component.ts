@@ -38,15 +38,10 @@ export class PlaylistCoverComponent implements OnInit {
     this.getPlaylistFromAPI();
   }
 
-  // onChange(menuOption: any) {
-  //   console.log("Value: ", this.menuOption);
-  // }
 
   onChange(event: any){
-    console.log(event.target.id)
     let val = event.target.value;
     let playlist_id = event.target.id
-    console.log(val);
     if(val === 'Edit Further') {
       this.router.navigate(['/edit', playlist_id]);
     }
